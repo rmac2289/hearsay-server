@@ -20,7 +20,7 @@ const ReviewsService = {
                 usr.id,
                 usr.user_name,
                 usr.full_name,
-                usr.nickname,
+                usr.nick_name,
                 usr.date_created,
                 usr.date_modified
             ) tmp)
@@ -51,12 +51,12 @@ const ReviewsService = {
     return {
       id: review.id,
       rating: review.rating,
-      comment: xss(review.comment),
+      comments: xss(review.comments),
       nature: xss(review.nature),
       state: review.state,
       department: review.department,
       date: review.date,
-      user: review.user_id || {},
+      user_id: review.user_id || {},
     }
   }
 }

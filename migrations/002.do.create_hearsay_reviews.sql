@@ -6,6 +6,5 @@ CREATE TABLE hearsay_reviews (
     rating INTEGER NOT NULL,
     date TIMESTAMPTZ DEFAULT now() NOT NULL,
     comments TEXT NOT NULL,
-    user TEXT
-        REFERENCES hearsay_users(user_name) ON DELETE CASCADE NOT NULL,
+    user_id INTEGER REFERENCES hearsay_users(id) ON DELETE CASCADE NOT NULL
 );
