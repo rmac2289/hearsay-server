@@ -2,7 +2,8 @@ BEGIN;
 
 TRUNCATE
   hearsay_users,
-  hearsay_reviews
+  hearsay_reviews,
+  hearsay_discussion
   RESTART IDENTITY CASCADE;
 
 INSERT INTO hearsay_users (user_name, full_name, nick_name, password
@@ -23,13 +24,14 @@ INSERT INTO hearsay_users (user_name, full_name, nick_name, password
 ('roldalld','Roscoe Oldall','Roscoe','VfUUfZ8viBp'),
 ('sbordere','Siffre Border','Siffre','nmkc4u');
 
-INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, user_id) 
+INSERT INTO hearsay_reviews (state, department, comments, rating, incident_date, review_date, nature, user_id) 
     VALUES
 (
         'Alabama',
         'Birmingham',
         'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',
         9,
+        '2018-05-22',
         '2019-09-09 04:58:22',
         'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 1
     ),
@@ -38,6 +40,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Madison',
         'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.',
         3,
+        '2016-08-04',
         '2019-12-05 23:27:02',
         'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 2
     ),
@@ -46,6 +49,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Berkeley',
         'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
         4,
+        '2020-01-20',
         '2020-01-26 18:15:10',
         'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 3
     ),
@@ -54,6 +58,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Escondido',
         'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.',
         7,
+        '2019-09-03',
         '2019-09-08 01:23:23',
         'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 4
     ),
@@ -62,6 +67,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'San Bernardino',
         'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.',
         7,
+        '2020-01-25',
         '2020-01-27 07:53:53',
         'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 5
     ),
@@ -70,6 +76,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Pittsburgh',
         'Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.',
         7,
+        '2019-05-03',
         '2019-05-29 07:55:45',
         'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 6
     ),
@@ -78,6 +85,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Denver',
         'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.',
         2,
+        '2020-01-10',
         '2020-01-17 03:23:36',
         'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.',7
     ),
@@ -86,6 +94,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Las Vegas',
         'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',
         9,
+        '2020-04-30',
         '2020-05-02 06:16:56',
         'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',8
     ),
@@ -94,6 +103,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Washington',
         'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.',
         8,
+        '2016-12-02',
         '2019-12-03 19:17:05',
         'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',9
     ),
@@ -102,6 +112,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Huntington',
         'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',
         3,
+        '2017-09-04',
         '2019-09-04 20:45:44',
         'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.',10
     ),
@@ -110,6 +121,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Indianapolis',
         'Phasellus in felis. Donec semper sapien a libero. Nam dui.',
         5,
+        '2011-11-22',
         '2019-07-30 11:04:05',
         'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.',11
     ),
@@ -118,6 +130,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Pasadena',
         'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
         1,
+        '2019-08-14',
         '2019-09-15 15:04:22',
         'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',12
     ),
@@ -126,6 +139,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Salem',
         'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.',
         6,
+        '2019-10-07',
         '2019-11-08 12:24:42',
         'In congue. Etiam justo. Etiam pretium iaculis justo.', 13
     ),
@@ -134,6 +148,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'San Francisco',
         'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.',
         4,
+        '2019-03-02',
         '2019-05-20 13:15:24',
         'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',14
     ),
@@ -142,6 +157,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Houston',
         'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.',
         8,
+        '2019-06-02',
         '2019-07-04 14:56:29',
         'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.',6
     ),
@@ -150,6 +166,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Bonita Springs',
         'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
         4,
+        '2019-06-04',
         '2019-07-29 16:01:41',
         'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',3
     ),
@@ -158,6 +175,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Chicago',
         'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.',
         5,
+        '2019-08-04',
         '2019-10-23 01:32:04',
         'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',2
     ),
@@ -166,6 +184,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Bronx',
         'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.',
         1,
+        '2018-04-03',
         '2019-06-20 22:54:31',
         'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',7
     ),
@@ -174,6 +193,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Memphis',
         'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.',
         3,
+        '2017-06-04',
         '2019-05-24 21:35:42',
         'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.',9
     ),
@@ -182,6 +202,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Tampa',
         'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
         10,
+        '2019-07-30',
         '2019-09-06 22:37:49',
         'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.',4
     ),
@@ -190,6 +211,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Orlando',
         'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
         3,
+        '2012-11-22',
         '2019-12-26 22:52:22',
         'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',1
     ),
@@ -198,6 +220,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Phoenix',
         'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.',
         6,
+        '2017-08-12',
         '2019-08-02 09:41:09',
         'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.',5
     ),
@@ -206,6 +229,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Tulsa',
         'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.',
         5,
+        '2019-05-04',
         '2019-07-28 04:03:32',
         'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.',10
     ),
@@ -214,6 +238,7 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Saint Paul',
         'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.',
         1,
+        '2017-09-10',
         '2019-06-10 08:08:48',
         'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.',11
     ),
@@ -222,9 +247,29 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, date, nature, 
         'Newton',
         'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.',
         9,
+        '2018-08-09',
         '2019-09-11 18:28:42',
         'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',13
     )
 ;
+
+INSERT INTO hearsay_discussion (discussion_post, topic_name, user_id)
+    VALUES 
+    ('Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.','Police Brutality',8),
+    ('In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.','Juvenile Justice',11),
+    ('Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.','Race',9),
+    ('Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.','War on Drugs',14),
+    ('Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.','Capital Punishment',13),
+    ('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.','Random',11),
+    ('Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.','Random',5),
+    ('Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.','What the System is Doing Well',3),
+    ('Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.','Crime Prevention',2),
+    ('Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.','Prison System',11),
+    ('Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.','Criminal Justice Reform',11),
+    ('In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.','Random',1),
+    ('In congue. Etiam justo. Etiam pretium iaculis justo.','Police-Community Relations',14),
+    ('Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.','Random',8),
+    ('Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.','Race', 6);
+
 
 COMMIT;

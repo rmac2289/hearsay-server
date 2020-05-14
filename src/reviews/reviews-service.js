@@ -1,29 +1,28 @@
 const xss = require('xss')
 
 const ReviewsService = {
-  getById(db, id) {
+  getAllReviews(db) {
     return db
       .from('hearsay_reviews AS rev')
       .select(
         'rev.id',
-        'rev.rating',
-        'rev.comments',
-        'rev.date',
         'rev.state',
         'rev.department',
         'rev.nature',
-        'rev.user_id',
+        'rev.rating',
+        'rev.incident_date',
+        'rev.review_date',
+        'rev.comments',
         db.raw(
-          `row_to_json(
-            (SELECT tmp FROM (
-              SELECT
-                usr.id,
-                usr.user_name,
-                usr.full_name,
-                usr.nick_name,
-                usr.date_created,
-                usr.date_modified
-            ) tmp)
+          `json_strip_nulls(
+            json_build_object(
+              'id', usr.id,
+              'user_name', usr.user_name,
+              'full_name', usr.full_name,
+              'nick_name', usr.nick_name,
+              'date_created', usr.date_created,
+              'date_modified', usr.date_modified
+            )
           ) AS "user"`
         )
       )
@@ -32,10 +31,14 @@ const ReviewsService = {
         'rev.user_id',
         'usr.id',
       )
+      .groupBy('rev.id', 'usr.id')
+  },
+
+  getById(db, id) {
+    return ReviewsService.getAllReviews(db)
       .where('rev.id', id)
       .first()
   },
-
   insertReview(db, newReview) {
     return db
       .insert(newReview)
@@ -48,15 +51,17 @@ const ReviewsService = {
   },
 
   serializeReview(review) {
+    const { user } = review
     return {
       id: review.id,
-      rating: review.rating,
-      comments: xss(review.comments),
-      nature: xss(review.nature),
       state: review.state,
       department: review.department,
-      date: review.date,
-      user_id: review.user_id || {},
+      rating: review.rating,
+      nature: xss(review.nature),
+      incident_date: review.incident_date,
+      review_date: new Date(review.review_date),
+      comments: xss(review.comments),
+      user: user.id || {},
     }
   }
 }
