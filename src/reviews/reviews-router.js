@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const ReviewsService = require('./reviews-service')
+const { requireAuth } = require('../middleware/basic-auth')
 
 const reviewsRouter = express.Router()
 const jsonBodyParser = express.json()
@@ -16,7 +17,7 @@ reviewsRouter
   })
 reviewsRouter
   .route('/')
-  .post(jsonBodyParser, (req, res, next) => {
+  .post(requireAuth, jsonBodyParser, (req, res, next) => {
     const { state, department, nature, incident_date, rating, comments } = req.body 
     const newReview =  { state, department, nature, incident_date, rating, comments } 
 
@@ -29,6 +30,7 @@ reviewsRouter
       req.app.get('db'),
       newReview
     )
+    newReview.user = user
       .then(review => {
         res
           .status(201)
@@ -40,6 +42,7 @@ reviewsRouter
 
 reviewsRouter
   .route('/:review_id')
+  .all(requireAuth)
   .all(checkReviewExists)
   .get((req, res) => {
     res.json(ReviewsService.serializeReview(res.review))
