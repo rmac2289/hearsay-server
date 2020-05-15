@@ -252,6 +252,20 @@ INSERT INTO hearsay_reviews (state, department, comments, rating, incident_date,
         'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',13
     )
 ;
+INSERT INTO hearsay_topics (topic_name)
+    VALUES 
+    ('Police Brutality'),
+    ('Criminal Justice Reform'),
+    ('War on Drugs'),
+    ('What the System is Doing Well'),
+    ('Capital Punishment'),
+    ('Crime Prevention'),
+    ('Juvenile Justice'),
+    ('Police-Community Relations'),
+    ('Prison System'),
+    ('Race'),
+    ('Random'),
+    ('Forensic Science');
 
 INSERT INTO hearsay_discussion (discussion_post, topic_name, user_id)
     VALUES 
@@ -270,6 +284,5 @@ INSERT INTO hearsay_discussion (discussion_post, topic_name, user_id)
     ('In congue. Etiam justo. Etiam pretium iaculis justo.','Police-Community Relations',14),
     ('Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.','Random',8),
     ('Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.','Race', 6);
-
 
 COMMIT;

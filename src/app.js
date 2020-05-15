@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 const reviewsRouter = require('./reviews/reviews-router')
 const usersRouter = require('./users/users-router')
 const authRouter = require('./auth/auth-router')
+const discussionRouter = require('./discussion/discussion-router')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/api/auth', authRouter)
 app.use('/api/reviews', reviewsRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/discussion', discussionRouter)
 
 app.use(function errorHandler(error, req, res, next){
     let response
