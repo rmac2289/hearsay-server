@@ -69,6 +69,8 @@ const DiscussionService = {
       discussion_post: xss(discussion.discussion_post),
       topic_name: discussion.topic_name,
       user: user.id || {},
+      nick_name: user.nick_name,
+      user_name: user.user_name
     }
   }
 }

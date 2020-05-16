@@ -26,7 +26,7 @@ discussionRouter
         })
 
       newDiscussionPost.user_id = req.user.id
-
+      newDiscussionPost.nick_name = req.user.nick_name
     DiscussionService.insertDiscussionPost(
       req.app.get('db'),
       newDiscussionPost
@@ -52,7 +52,6 @@ discussionRouter
 
 discussionRouter
   .route('/:discussion_id')
-  .all(requireAuth)
   .all(checkDiscussionExists)
   .get((req, res) => {
     res.json(DiscussionService.serializeDiscussion(res.discussion))
