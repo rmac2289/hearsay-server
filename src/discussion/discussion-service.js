@@ -9,6 +9,7 @@ const DiscussionService = {
         'top.topic_name'
       )
   },
+
   getAllPosts(db) {
     return db
       .from('hearsay_discussion AS dis')

@@ -26,7 +26,6 @@ discussionRouter
         })
 
       newDiscussionPost.user_id = req.user.id
-      newDiscussionPost.nick_name = req.user.nick_name
     DiscussionService.insertDiscussionPost(
       req.app.get('db'),
       newDiscussionPost
@@ -76,7 +75,5 @@ async function checkDiscussionExists(req, res, next) {
     next(error)
   }
 }
-
-
 
 module.exports = discussionRouter
