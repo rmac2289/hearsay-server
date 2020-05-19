@@ -46,8 +46,8 @@ function makeReviewsArray(users) {
       department: 'test dept 1',
       nature: 'testnature1',
       rating: 7,
-      incident_date: '2029-01-22T16:28:32.615Z',
-      review_date: '2029-01-22T16:28:32.615Z',
+      incident_date: new Date('2029-01-22T00:00:00.000Z'),
+      review_date: new Date('2029-01-22T16:28:32.615Z'),
       comments: 'test comments 1',
       user_id: users[0].id,
     },
@@ -57,8 +57,8 @@ function makeReviewsArray(users) {
       department: 'test dept 2',
       nature: 'testnature2',
       rating: 7,
-      incident_date: '2029-01-22T16:28:32.615Z',
-      review_date: '2029-01-22T16:28:32.615Z',
+      incident_date: new Date('2029-01-22T00:00:00.000Z'),
+      review_date: new Date('2029-01-22T16:28:32.615Z'),
       comments: 'test comments 2',
       user_id: users[1].id, },
     {
@@ -67,8 +67,8 @@ function makeReviewsArray(users) {
       department: 'test dept 3',
       nature: 'testnature3',
       rating: 7,
-      incident_date: '2029-01-22T16:28:32.615Z',
-      review_date: '2029-01-22T16:28:32.615Z',
+      incident_date: new Date('2029-01-22T00:00:00.000Z'),
+      review_date: new Date('2029-01-22T16:28:32.615Z'),
       comments: 'test comments 3',
       user_id: users[2].id,},
     {
@@ -77,8 +77,8 @@ function makeReviewsArray(users) {
       department: 'test dept 4',
       nature: 'testnature4',
       rating: 7,
-      incident_date: '2029-01-22T16:28:32.615Z',
-      review_date: '2029-01-22T16:28:32.615Z',
+      incident_date: new Date('2029-01-22T00:00:00.000Z'),
+      review_date: new Date('2029-01-22T16:28:32.615Z'),
       comments: 'test comments 4',
       user_id: users[3].id,},
   ]
@@ -126,27 +126,18 @@ function makeDiscussionArray(users, things) {
 
 function makeExpectedReview(users, reviews) {
   const user = users
-    .find(user => user.id === thing.user_id)
-
-  const Reviews = reviews
-    .filter(review => review.thing_id === Reviews.id)
+    .find(user => user.id === reviews.user_id)
 
   return {
-    id: Reviews.id,
-    state: Reviews.state,
-    department: Reviews.department,
-    nature: Reviews.nature,
-    rating: Reviews.rating,
-    incident_date: Reviews.incident_date,
-    review_date: Reviews.review_date,
-    comments: Reviews.comments,
-    user: {
-      id: user.id,
-      user_name: user.user_name,
-      full_name: user.full_name,
-      nick_name: user.nick_name,
-      date_created: user.date_created,
-    },
+    id: reviews.id,
+    state: reviews.state,
+    department: reviews.department,
+    nature: reviews.nature,
+    rating: reviews.rating,
+    incident_date: new Date(reviews.incident_date).toISOString(),
+    review_date: new Date(reviews.review_date).toISOString(),
+    comments: reviews.comments,
+    user: user.id
   }
 }
 
