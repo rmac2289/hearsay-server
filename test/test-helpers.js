@@ -84,44 +84,74 @@ function makeReviewsArray(users) {
   ]
 }
 
-function makeDiscussionArray(users, things) {
+function makeDiscussionArray(users, topics) {
   return [
     {
       id: 1,
       discussion_post: 'First test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[0].topic_name,
+      user_id: users[0].id
     },
     {
       id: 2,
       discussion_post: 'Second test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[1].topic_name,
+      user_id: users[1].id
     },
     {
       id: 3,
       discussion_post: 'Third test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[2].topic_name,
+      user_id: users[2].id
     },
     {
       id: 4,
       discussion_post: 'Fourth test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[3].topic_name,
+      user_id: users[3].id
     },
     {
       id: 5,
       discussion_post: 'Fifth test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[4].topic_name,
+      user_id: users[0].id
     },
     {
       id: 6,
       discussion_post: 'Sixth test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[5].topic_name,
+      user_id: users[1].id
     },
     {
       id: 7,
       discussion_post: 'Seventh test review!',
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: new Date('2029-01-22T16:28:32.615Z'),
+      topic_name: topics[6].topic_name,
+      user_id: users[2].id
     },
   ];
+}
+function makeTopicsArray(){
+  return [
+    {id:1,topic_name:'Police Brutality'},
+    {id:2,topic_name:'Criminal Justice Reform'},
+    {id:3,topic_name:'War on Drugs'},
+    {id:4,topic_name:'What the System is Doing Well'},
+    {id:5,topic_name:'Capital Punishment'},
+    {id:6,topic_name:'Crime Prevention'},
+    {id:7,topic_name:'Juvenile Justice'},
+    {id:8,topic_name:'Police-Community Relations'},
+    {id:9,topic_name:'Prison System'},
+    {id:10,topic_name:'Race'},
+    {id:11,topic_name:'Random'},
+    {id:12,topic_name:'Forensic Science'}
+  ]
 }
 
 function makeExpectedReview(users, reviews) {
@@ -145,17 +175,32 @@ function makeExpectedReview(users, reviews) {
 function makeReviewsFixtures() {
   const testUsers = makeUsersArray()
   const testReviews = makeReviewsArray(testUsers)
-  return { testUsers, testReviews }
+  const testTopics = makeTopicsArray()
+  const testDiscussions = makeDiscussionArray(testUsers, testTopics)
+  return { testUsers, testReviews, testTopics, testDiscussions }
 }
 
 function cleanTables(db) {
-  return db.raw(
+  return db.transaction(trx =>
+    trx.raw(
     `TRUNCATE
       hearsay_users,
       hearsay_reviews,
       hearsay_topics,
-      hearsay_discussion
-      RESTART IDENTITY CASCADE`
+      hearsay_discussion`
+  )
+  .then(() =>
+      Promise.all([
+        trx.raw(`ALTER SEQUENCE hearsay_reviews_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`ALTER SEQUENCE hearsay_users_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`ALTER SEQUENCE hearsay_topics_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`ALTER SEQUENCE hearsay_discussion_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`SELECT setval('hearsay_reviews_id_seq', 0)`),
+        trx.raw(`SELECT setval('hearsay_users_id_seq', 0)`),
+        trx.raw(`SELECT setval('hearsay_topics_id_seq', 0)`),
+        trx.raw(`SELECT setval('hearsay_discussion_id_seq', 0)`)
+      ])
+    )
   )
 }
 
@@ -173,6 +218,18 @@ function seedUsers(db, users) {
         )
       )
   }
+  function seedTopics(db, topics) {
+    const preppedTopics = topics.map(topic => ({
+      ...topic,
+      topic_name: topic.topic_name
+    }))
+    return db.into('hearsay_topics').insert(preppedTopics)
+      .then(() => 
+        db.raw(
+          `SELECT setval('hearsay_topics_id_seq', ?)`,
+          [topics[topics.length - 1].id]
+        ))
+  }
 
   function seedReviewTables(db, users,reviews) {
     // use a transaction to group the queries and auto rollback on any failure
@@ -184,6 +241,14 @@ function seedUsers(db, users) {
         `SELECT setval('hearsay_reviews_id_seq', ?)`,
         [reviews[reviews.length - 1].id],
       )
+    })
+  }
+  function seedDiscussionTables(db, users, topics, discussions){
+    return db.transaction(async trx => {
+      await seedUsers(trx,users)
+      await seedTopics(trx, topics)
+      await trx.into('hearsay_discussion').insert(discussions)
+      
     })
   }
     
@@ -202,8 +267,11 @@ module.exports = {
   makeDiscussionArray,
   makeReviewsArray,
   makeAuthHeader,
+  makeTopicsArray,
   makeReviewsFixtures,
   makeExpectedReview,
+  seedDiscussionTables,
+  seedTopics,
   cleanTables,
   seedReviewTables,
   seedUsers,
