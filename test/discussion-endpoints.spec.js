@@ -31,51 +31,33 @@ describe('Discussion Endpoints', function() {
       helpers.seedDiscussionTables(
         db,
         testUsers,
-        testTopics,
-        testDiscussions
+        testTopics
       )
     )
 
     it(`creates a discussion_post, responding with 201 and the new post`, function() {
       this.retries(3)
-      const testDiscussion = testDiscussions[0]
       const testUser = testUsers[0]
       const testTopic = testTopics[0]
       const newPost = {
         discussion_post: 'Test new post',
-        user_id: testUser.id,
         topic_name: testTopic.topic_name
       }
       return supertest(app)
         .post('/api/discussion')
         .set('Authorization', helpers.makeAuthHeader(testUser))
-        .send(testDiscussion)
+        .send(newPost)
         .expect(201)
         .expect(res => {
-          expect(res.body).to.have.property('id')
           expect(res.body.discussion_post).to.eql(newPost.discussion_post)
           expect(res.body.topic_name).to.eql(newPost.topic_name)
-          expect(res.body.user.id).to.eql(testUser.id)
+          expect(res.body.user.id).to.eql(newPost.user_id)
+          expect(res.body).to.have.property('id')
           expect(res.headers.location).to.eql(`/api/discussion/${res.body.id}`)
           const expectedDate = new Date().toLocaleString('en', { timeZone: 'UTC' })
           const actualDate = new Date(res.body.date_created).toLocaleString()
           expect(actualDate).to.eql(expectedDate)
         })
-        .expect(res =>
-          db
-            .from('hearsay_discussion')
-            .select('*')
-            .where({ id: res.body.id })
-            .first()
-            .then(row => {
-              expect(row.discussion_post).to.eql(newPost.discussion_post)
-              expect(row.topic_name).to.eql(newPost.topic_name)
-              expect(row.user_id).to.eql(testUser.id)
-              const expectedDate = new Date().toLocaleString('en', { timeZone: 'UTC' })
-              const actualDate = new Date(row.date_created).toLocaleString()
-              expect(actualDate).to.eql(expectedDate)
-            })
-        )
     })
 
     const requiredFields = ['discussion_post']
