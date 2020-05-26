@@ -26,6 +26,7 @@ reviewsRouter
         })
         
       newReview.user_id = req.user.id
+      newReview.user_name = req.user_name.id
 
     ReviewsService.insertReview(
       req.app.get('db'),
