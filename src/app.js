@@ -23,13 +23,7 @@ app.use('/api/reviews', reviewsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/discussion', discussionRouter)
 
-app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'https://hearsay-app.rmac2289.now.sh/'), function(err) {
-      if (err) {
-        res.status(500).send(err)
-      }
-    })
-  })
+
 
 app.use(function errorHandler(error, req, res, next){
     let response
