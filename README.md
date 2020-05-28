@@ -1,26 +1,77 @@
-# Express Boilerplate!
+# Hearsay 
 
-This is a boilerplate project used for starting new projects!
+[Live App](https://hearsay-app.rmac2289.now.sh/)
 
-## Set up
+---
+## Summary
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+Hearsay is a web app designed to allow users to review encounters with law enforcement. The app asks the user for information about their encounter and an explanation concerning how they felt the encounter went. Hearsay also includes a discussion board with various topics across the criminal justice field where users can express their opinions.  
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+---
 
-## Scripts
+## API Documentation
 
-Start the application `npm start`
+### API Root 
+https://fierce-cliffs-47097.herokuapp.com/api
 
-Start nodemon for the application `npm run dev`
+A bearer token is required for use of the API. The token can be acquired through registering with a username and password via the register link on the navigation bar.
 
-Run the tests `npm test`
+### API Endpoints
 
-## Deploying
+The API has multiple endpoints:
+- /login
+    The authentication endpoint called when the user attempts to login. Will authenticate
+    username and password and either log the user in or provide 'incorrect username or password' response.
+- /reviews
+    Accepts GET and POST requests. Reviews endpoint is called when the user attempts to 
+    either post a review or to view current reviews.
+- /users
+    Accepts POST request. The users endpoint is called when a new user is attempting registration. 
+- /discussion
+    Accepts GET and POST requests. Discussion endpoint is called when the user clicks on a discussion topic or attempts to post a comment to that discussion.
+- /discussion/topics
+    Accepts GET request. Topics endpoint is called whenever the user navigates to the discussion/forum page. 
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+---
+
+## Screenshots
+<img src="./images/homepage.png" max-width="600"/>
+<img src="./images/Screen Shot 2020-05-26 at 2.28.26 PM.png" max-width="600"/>
+<img src="./images/Screen Shot 2020-05-26 at 2.29.19 PM.png" max-width="600"/>
+<img src="./images/Screen Shot 2020-05-26 at 2.30.34 PM.png" max-width="600"/>
+
+
+---
+
+## Technologies
+
+### Codebase
+- [React](https://reactjs.org/)
+- [Node.js](https://nodejs.org/en/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Express](https://expressjs.com/)
+- [Knex](http://knexjs.org/)
+- [JWT](https://jwt.io/)
+
+### Test
+- [Mocha](https://mochajs.org/)
+- [Chai](https://www.chaijs.com/)
+- [Supertest](https://www.npmjs.com/package/supertest)
+
+### Deployment
+- [Heroku](https://dashboard.heroku.com/)
+- [GitHub(client)](https://github.com/rmac2289/hearsay-app)
+- [Github(server)](https://github.com/rmac2289/hearsay-server)
+- [Zeit/Vercel](https://vercel.com)
+
+
+
+
+
+
+
+
+
+
+
+
