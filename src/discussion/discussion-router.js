@@ -6,6 +6,8 @@ const { requireAuth } = require('../middleware/jwt-auth')
 const discussionRouter = express.Router()
 const jsonBodyParser = express.json()
 
+// routes for discussion posts //
+
 discussionRouter
   .route('/')
   .get((req, res, next) => {

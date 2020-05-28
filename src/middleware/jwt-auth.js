@@ -1,5 +1,7 @@
 const AuthService = require('../auth/auth-service')
 
+// jwt auth - issues token upon login //
+
 function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
 

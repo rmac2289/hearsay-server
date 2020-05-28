@@ -5,6 +5,8 @@ const { requireAuth } = require('../middleware/jwt-auth')
 const authRouter = express.Router()
 const jsonBodyParser = express.json()
 
+// routes for user authentication //
+
 authRouter
     .post('/login', jsonBodyParser, (req, res, next) => {
         const { user_name, password } = req.body

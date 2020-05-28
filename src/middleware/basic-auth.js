@@ -1,5 +1,7 @@
 const AuthService = require('../auth/auth-service')
 
+// basic auth middleware - currently unused in favor of jwt auth //
+
 function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
 
