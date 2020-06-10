@@ -18,6 +18,8 @@ const DiscussionService = {
         'dis.date_created',
         'dis.discussion_post',
         'dis.topic_name',
+        'dis.likes',
+        'dis.dislikes',
         db.raw(
           `json_strip_nulls(
             json_build_object(
@@ -54,6 +56,11 @@ const DiscussionService = {
         DiscussionService.getById(db, discussion.id)
       )
   },
+  updateLikes(knex, id, newCount) {
+    return knex('hearsay_discussion')
+      .where({ id })
+      .update(newCount)
+  },
   serializeTopics(topics) {
     const { user } = topics
     return {
@@ -69,6 +76,8 @@ const DiscussionService = {
       date_created: new Date(discussion.date_created),
       discussion_post: xss(discussion.discussion_post),
       topic_name: discussion.topic_name,
+      likes: discussion.likes,
+      dislikes: discussion.dislikes,
       user: user.id || {},
       nick_name: user.nick_name,
       user_name: user.user_name

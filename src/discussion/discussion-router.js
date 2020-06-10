@@ -56,7 +56,22 @@ discussionRouter
   .all(checkDiscussionExists)
   .get((req, res) => {
     res.json(DiscussionService.serializeDiscussion(res.discussion))
+    .catch(next)
   })
+  .patch(jsonBodyParser, (req, res, next) => {
+    const { discussion_post, topic_name, likes, dislikes } = req.body 
+    const postToUpdate =  { discussion_post, topic_name, likes, dislikes } 
+    DiscussionService.updateLikes(
+      req.app.get('db'),
+      req.params.discussion_id,
+      postToUpdate
+    )
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
+
 
 /* async/await syntax for promises */
 async function checkDiscussionExists(req, res, next) {
